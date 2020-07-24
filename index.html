@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section id="Whole">
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default"><i class="fas fa-minus" id="btnMinus1"></i></button>
+                           <input type="text" class="form-control text-center" value="0" id="count1">
+                           <button class="btn btn-default"><i class="fas fa-plus" id="btnPlus1"></i></button>
+                        </div>
+                        <h5>$ <span id="price1">1200</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default"><i class="fas fa-minus" id="btnMinus2"></i></button>
+                           <input type="text" class="form-control text-center" value="0" id="count2">
+                           <button class="btn btn-default"><i class="fas fa-plus" id="btnPlus2"></i></button>
+
+                        </div>
+                        <h5>$<span id="price2">50</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5 id="priceX">$0</h5>
+                        <h5 id="tax">$0</h5>
+                        <h5 id="priceWTax">$0</h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out" id="vanisher">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <h1 class="text-center" style="margin-top: 400px; display: none;" id="end">Thanks for your buy , Have a nice day </h1>
+
+   <script>
+
+
+
+      var x1=document.getElementById('btnMinus1');
+      var x2=document.getElementById('btnPlus1');
+      var x3=document.getElementById('price1').innerText;
+      var x4=document.getElementById('btnMinus2');
+      var x5=document.getElementById('btnPlus2');
+      var x6=document.getElementById('price2').innerText;
+      var cnt1=document.getElementById('count1').value;
+      var cnt2=document.getElementById('count2').value;
+
+
+
+      x3=parseInt(x3);
+      x6=parseInt(x6);
+      cnt1=parseInt(cnt1);
+      cnt2=parseInt(cnt2);
+      console.log(x3,x6,cnt1,cnt2);
+
+      
+      // console.log(x1,x2,x3,x4,x5,x6,cnt1,cnt2);
+
+
+     var Phone=0;
+     var Case=0;
+      
+            
+      //phone price handle
+      x1.addEventListener('click',function(){
+         if(cnt1<0){
+
+         }
+         else{
+            var count1=cnt1--;
+         console.log(count1);  
+         document.getElementById('count1').value=count1;
+         var price1=x3*count1;
+         Phone=price1;
+         console.log(price1);
+         document.getElementById('price1').innerText=price1;
+         totalCal( price1, Case);
+
+         }
+      })
+      x2.addEventListener('click',function(){
+         var count1= cnt1++;
+         console.log(count1)
+         document.getElementById('count1').value=count1;
+         var price1=x3*count1;
+         Phone=price1;
+         console.log(price1);
+         document.getElementById('price1').innerText=price1;
+         totalCal(price1, Case);
+      })
+
+      //cover price handle
+      x4.addEventListener('click',function(){
+         if(cnt2<0){
+
+         }
+         else{
+            var count2= cnt2--;
+         console.log(count2);
+         document.getElementById('count2').value=count2;
+         var price2=x6*count2;
+         Case=price2;
+         console.log(price2);
+         document.getElementById('price2').innerText=price2;
+         totalCal(Phone, price2);
+         }
+      })
+      x5.addEventListener('click',function(){
+         var count2= cnt2++;
+         console.log(count2)
+         document.getElementById('count2').value=count2;
+         var price2=x6*count2;
+         Case=price2;
+         console.log(price2);
+         document.getElementById('price2').innerText=price2;
+         totalCal(Phone, price2);
+      })
+      
+
+
+
+
+
+
+
+
+
+
+
+     
+      function totalCal(price1,price2){
+         var total=(price1+price2);
+            document.getElementById('priceX').innerText=total;
+         var tax=total*.04;
+            document.getElementById('tax').innerText=tax;
+         var totalTax=(total)*1.04;   
+         totalTax= totalTax.toFixed(2);
+            document.getElementById('priceWTax').innerText=totalTax;   
+      }
+
+
+      var x=document.getElementById("vanisher");
+      x.addEventListener('click',function(){
+         document.getElementById('Whole').style.display="none";
+         document.getElementById('end').style.display="block";
+         
+      })
+
+   </script>
+</body>
+
+</html>
